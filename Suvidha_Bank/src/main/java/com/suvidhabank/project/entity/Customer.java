@@ -17,7 +17,6 @@ import lombok.ToString;
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString
 
 @Entity
 public class Customer {
@@ -32,7 +31,12 @@ public class Customer {
 	@JsonIgnore
 	@OneToOne(mappedBy = "customer")
 	private Loan loan;
+	@Override
+	public String toString() {
+		return "Customer [customerIdentity=" + customerIdentity + ", customerName=" + customerName
+				+ ", customerAddress=" + customerAddress + ", emailId=" + emailId + ", annualIncome=" + annualIncome
+				+ ", incomeTaxReturnAttached=" + incomeTaxReturnAttached + "]";
+	}
 	
-
 	
 }

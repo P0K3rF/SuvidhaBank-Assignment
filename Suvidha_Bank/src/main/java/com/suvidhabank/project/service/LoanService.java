@@ -35,8 +35,10 @@ public class LoanService {
 	@Autowired
 	private CustomerRepository customerRepository;
 
-	public Loan findLoanById(String loanId) {
-		Optional<Loan> optl = this.loanRepository.findById(loanId);
+	public Loan findLoanById(String customerId) {
+		Customer c=this.customerRepository.findById(customerId).get();			
+		String loanid=c.getLoan().getLoanId();
+		Optional<Loan> optl = this.loanRepository.findById(loanid);
 		return optl.orElseThrow(() -> new EntityNotFoundException("Loan with specified id not found"));
 	}
 
@@ -57,25 +59,26 @@ public class LoanService {
 			Customer c=this.customerRepository.findById(customerId).get();			
 			String loanid=c.getLoan().getLoanId();
 			Loan l=this.loanRepository.findById(loanid).get();
-			l.setRemarks("Approved");
-			this.loanRepository.save(l);
-			return true;
+			if(l.getRemarks().equals("No collateral submitted"))
+			{				
+				l.setRemarks("Approved");
+				this.loanRepository.save(l);
+				return true;
+			}
+			return false;
 		
-//		throw new EntityNotFoundException("From updateLoan Method :Customer with that id not found");
 	}
 	
 	public Loan applyForLoan(String loanType, double loanAmount, double period, String customerIdentity) throws Exception {
 		Loan l = new Loan();
 		
-//		l.setCustomer(this.customerRepository.findById(customerIdentity).get());
-		l.setInterestRate(300000.0);
 		l.setLoanAmount(loanAmount);
 		int i=generate(10, 1000);
 		l.setLoanId(i+ "");
-//		l.setCollaterals(null);
 		l.setLoanType(loanType);
 		l.setPeriod(period);
 		String s=Integer.valueOf(generate(111, 119)).toString();
+		l.setInterestRate(Loan.calculateInterest(period));
 		
 		l.setEmployee(getEmployeeById(s));
 		l.setLoanType(loanType);
@@ -89,17 +92,17 @@ public class LoanService {
 
 	}
 
-	public boolean uploadCollateral(String loanId, List<Collateral> collaterals) {
-
-		Loan l = this.loanRepository.findById(loanId).get();
-		if (collaterals.size() > 0) {
-			for (Collateral c : collaterals) {
-//				c.setLoan(l);
-//				l.setCollaterals(collaterals);
-			}
-			return true;
-		}
-		return false;
-	}
+//	public boolean uploadCollateral(String loanId, List<Collateral> collaterals) {
+//
+//		Loan l = this.loanRepository.findById(loanId).get();
+//		if (collaterals.size() > 0) {
+//			for (Collateral c : collaterals) {
+////				c.setLoan(l);
+////				l.setCollaterals(collaterals);
+//			}
+//			return true;
+//		}
+//		return false;
+//	}
 
 }

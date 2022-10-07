@@ -16,10 +16,13 @@ import lombok.ToString;
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString
 
 @Entity
 public class Employee {
+	@Override
+	public String toString() {
+		return "Employee [employeeId=" + employeeId + ", employeeName=" + employeeName + "]";
+	}
 	@Id
 	private String employeeId;
 	private String employeeName;
