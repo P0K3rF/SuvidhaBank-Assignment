@@ -12,7 +12,7 @@
     
 
 2. For Getting Customer by Customer Id
-   Method:GET         URL:localhost:8080/customer/12345
+   Method:GET         URL:localhost:8080/customer/12345 -> (/customer/{customerId})
  
 3. For adding Loan 
    Method:POST        URL:localhost:8080/loan
@@ -26,4 +26,15 @@
    }
    
  4. For Getting Loan by Loan Id
-   Method:GET         URL:localhost:8080/loan/12345
+   Method:GET         URL:localhost:8080/loan/151  -> (/loan/{loanId})
+
+5. For Uploading Collaterals
+   Method:POST        URL:localhost:8080/collateral/12345 -> (/collateral/{customerId})
+   Body:
+   {
+    "collateralId":"1001",
+    "collateralType":"Fixed Deposit",
+    "loanId":"151"
+
+    }
+   
