@@ -32,6 +32,7 @@ public class SuvidhaBankApplication {
 	
 //	@Bean
 	public void initialize() {
+		//Adding Customer
 		Customer c1=new Customer();
 		c1.setCustomerIdentity("12345");
 		c1.setCustomerName("Khalil");
