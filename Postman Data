@@ -1,0 +1,29 @@
+1. For Adding Customer 
+   Method:POST       URL:- localhost:8080/customer   
+   Body:
+   {
+    "customerIdentity": "12345",
+    "customerName": "Khalil",
+    "customerAddress": "Mumbai",
+    "emailId": "khalil@123",
+    "annualIncome": 100000.0,
+    "incomeTaxReturnAttached": true
+    }
+    
+
+2. For Getting Customer by Customer Id
+   Method:GET         URL:localhost:8080/customer/12345
+ 
+3. For adding Loan 
+   Method:POST        URL:localhost:8080/loan
+   Body:
+   {
+    "type":"Hospital",
+    "amount":"80000.0",
+    "period":"4.0",
+    "identity":"12345"
+
+   }
+   
+ 4. For Getting Loan by Loan Id
+   Method:GET         URL:localhost:8080/loan/12345
