@@ -2,6 +2,7 @@ package com.suvidhabank.project.service;
 
 import java.util.Optional;
 
+import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,6 @@ public class CustomerService {
 			this.customerRepository.save(customer);
 			return true;
 		}
-		return false;
+		throw new EntityExistsException("Customer with this id already exist Try another!!");
 	}
 }
