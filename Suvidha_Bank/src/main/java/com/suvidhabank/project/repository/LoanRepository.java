@@ -13,6 +13,7 @@ public interface LoanRepository extends CrudRepository<Loan, String>{
 	@Query(value = "select * from loan where employee_Id=:empId",nativeQuery = true)
 	public List<Loan> findByEmployeeEmployeeId(String empId);
 	
+	
 	@Query()
 	public boolean existsByCustomer(String customerId);
 }

@@ -1,5 +1,6 @@
 package com.suvidhabank.project.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,10 +37,12 @@ public class LoanService {
 	private CustomerRepository customerRepository;
 
 	public Loan findLoanById(String customerId) {
-		Customer c=this.customerRepository.findById(customerId).get();			
+		
+		Customer c=this.customerRepository.findById(customerId).get();	
 		String loanid=c.getLoan().getLoanId();
-		Optional<Loan> optl = this.loanRepository.findById(loanid);
-		return optl.orElseThrow(() -> new EntityNotFoundException("Loan with specified id not found"));
+		Loan optl = this.loanRepository.findById(loanid).get();
+		optl.setCollaterals(this.collateralRepository.getAllColl(optl.getLoanId()));
+		return optl;
 	}
 
 	public static int generate(int min, int max) {
@@ -62,6 +65,7 @@ public class LoanService {
 			if(l.getRemarks().equals("No collateral submitted"))
 			{				
 				l.setRemarks("Approved");
+				l.setApproved(true);
 				this.loanRepository.save(l);
 				return true;
 			}
